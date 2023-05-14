@@ -7,15 +7,15 @@ Pixel Planet Time Lapse Generator. You can create a time-lapse of Pixel Planet f
 
    Open the terminal and clone the repository:
    
-git clone https://github.com/SalmanDEmad/pixelplanet-timelapse.git
+```git clone https://github.com/SalmanDEmad/pixelplanet-timelapse.git```
 
 Unzip the file and navigate to the project directory:
 
-cd pixelplanet-timelapse
+```cd pixelplanet-timelapse```
 
 Install the required dependencies:
 
-pip install -r requirements.txt
+```pip install -r requirements.txt```
 
 
 ## Configuration
@@ -34,7 +34,7 @@ Change the value to the directory path of your computer's download folder. Note:
 
 In the terminal, run the following command:
 
-py main.py
+```py main.py```
 
 
 It will ask for the Pixel Planet coordinate link. The link should look like this: `https://pixelplanet.fun/#d,-15939,-8212,-12`
