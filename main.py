@@ -10,6 +10,8 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.keys import Keys
 
+from min import fix_image
+
 # Function to extract numbers from the link
 def extract_numbers_from_link(link):
     match = re.search(r',(-?\d+),(-?\d+)', link)
@@ -119,6 +121,8 @@ if numbers:
         print("No matching files found.")
 else:
     print("No numbers found in the link.")
+
+fix_image(folder_name)
 
 
 # Close the browser window
