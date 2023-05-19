@@ -9,8 +9,12 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.keys import Keys
+import asyncio
 
 from min import fix_image
+
+date_change = 30
+time_change = 5
 
 # Function to extract numbers from the link
 def extract_numbers_from_link(link):
@@ -37,7 +41,7 @@ link = input("Link for the location you want recorded")
 initial_date = input("Date from which you want to start (in yyyy-mm-dd format):")  # Replace with the desired initial date
 
 # Specify the path to the download folder
-download_folder = "insert path to where your download files go"
+download_folder = "C:/Users/SALMAN/Downloads"
 
 today = date.today()
 folder_name = initial_date + today.strftime("%Y-%m-%d")
@@ -64,7 +68,7 @@ date_input.send_keys(initial_date)
 date_input.send_keys(Keys.RETURN)
 
 # Function to handle the process from a specific date
-def process_from_date(date):
+async def process_from_date(date):
     # Loop until the current date is reached
     current_date = time.strftime("%Y-%m-%d")
     while date != current_date:
@@ -82,16 +86,26 @@ def process_from_date(date):
             next_button.click()
 
             # Get the updated date value
+            updated_date = driver.execute_script("return arguments[0].value;", date_input)
+            
+            if updated_date != date:
+                await asyncio.sleep(date_change)  # Change value of date_change variable to increase or decrease waiting time
+            else:
+                await asyncio.sleep(time_change) # Change value of time_change variable to increase or decrease waiting time although this wont be necessary unless your network is unreasonably slow
+
+            # Get the updated date value
             date = driver.execute_script("return arguments[0].value;", date_input)
 
         except:
             # If an error occurs, print the error message and retry from the current date
             print("Error occurred. Retrying from current date:", date)
-            process_from_date(date)
+            await process_from_date(date)
             break
 
-# Process from the initial date input
-process_from_date(initial_date)
+try:
+    asyncio.run(process_from_date(initial_date))
+except RecursionError:
+    print("RecursionError occurred. Program terminated.")
 
 # Extract numbers from the link
 numbers = extract_numbers_from_link(link)

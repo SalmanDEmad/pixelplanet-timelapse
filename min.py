@@ -6,6 +6,7 @@ from movie import timelapse
 
 def fix_image(source_folder):
     destination_folder = source_folder + '_fixed'  # Set destination folder based on source folder name
+    os.makedirs(destination_folder, exist_ok=True)  # Create destination folder if it doesn't exist
     target_width = 1036
     target_height = 610
 
@@ -57,4 +58,4 @@ def fix_image(source_folder):
     for filename in sorted_files:
         print(filename)
 
-    timelapse(source_folder)
+    timelapse(destination_folder)
